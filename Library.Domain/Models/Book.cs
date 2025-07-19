@@ -3,6 +3,13 @@ using System.Text.Json.Serialization;
 
 namespace Library.Domain.Models
 {
+    public enum OwnershipStatus
+    {
+        Own,
+        Love,
+        WantToRead
+    }
+
     /// <summary>
     /// Represents a book in the Royal Library
     /// </summary>
@@ -61,6 +68,8 @@ namespace Library.Domain.Models
         /// </summary>
         [StringLength(50)]
         public string Category { get; set; } = string.Empty;
+        
+        public OwnershipStatus Status { get; set; }
         
         /// <summary>
         /// The full name of the author (derived from FirstName and LastName)

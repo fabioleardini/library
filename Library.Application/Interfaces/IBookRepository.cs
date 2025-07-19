@@ -18,6 +18,8 @@ namespace Library.Application.Interfaces
         Task<PagedResult<Book>> SearchBooksByTitlePagedAsync(string title, int page = 1, int pageSize = 20);
         Task<PagedResult<Book>> SearchBooksByAuthorPagedAsync(string author, int page = 1, int pageSize = 20);
         Task<PagedResult<Book>> SearchBooksByISBNPagedAsync(string isbn, int page = 1, int pageSize = 20);
+        Task<IEnumerable<Book>> SearchBooksByOwnershipStatusAsync(OwnershipStatus status);
+        Task<PagedResult<Book>> SearchBooksByOwnershipStatusPagedAsync(OwnershipStatus status, int page, int pageSize);
     
         
         Task<Book> AddBookAsync(Book book);

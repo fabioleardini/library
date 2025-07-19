@@ -1,3 +1,9 @@
+export enum OwnershipStatus {
+  Own = 0,
+  Love = 1,
+  WantToRead = 2
+}
+
 export interface Book {
   id: number;
   title: string;
@@ -8,6 +14,7 @@ export interface Book {
   type: string;
   isbn: string;
   category: string;
+  status: OwnershipStatus;
   author: string;
   availableCopies: number;
 }

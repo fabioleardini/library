@@ -12,7 +12,7 @@ import {
 } from '@mui/material';
 import { Edit as EditIcon, Delete as DeleteIcon } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
-import { Book } from '../models/Book';
+import { Book, OwnershipStatus } from '../models/Book';
 import { BookService } from '../services/BookService';
 
 interface BookTableProps {
@@ -22,6 +22,19 @@ interface BookTableProps {
 
 const BookTable: React.FC<BookTableProps> = ({ books, onBookDeleted }) => {
   const navigate = useNavigate();
+
+  const getStatusText = (status: OwnershipStatus): string => {
+    switch (status) {
+      case OwnershipStatus.Own:
+        return 'Own';
+      case OwnershipStatus.Love:
+        return 'Love';
+      case OwnershipStatus.WantToRead:
+        return 'Want to Read';
+      default:
+        return 'Unknown';
+    }
+  };
 
   const handleEdit = (id: number) => {
     navigate(`/books/edit/${id}`);
@@ -52,6 +65,7 @@ const BookTable: React.FC<BookTableProps> = ({ books, onBookDeleted }) => {
             <TableCell>Type</TableCell>
             <TableCell>ISBN</TableCell>
             <TableCell>Category</TableCell>
+            <TableCell>Status</TableCell>
             <TableCell>Available Copies</TableCell>
             <TableCell>Actions</TableCell>
           </TableRow>
@@ -65,6 +79,7 @@ const BookTable: React.FC<BookTableProps> = ({ books, onBookDeleted }) => {
               <TableCell>{book.type}</TableCell>
               <TableCell>{book.isbn}</TableCell>
               <TableCell>{book.category}</TableCell>
+              <TableCell>{getStatusText(book.status)}</TableCell>
               <TableCell>{`${book.availableCopies}/${book.totalCopies}`}</TableCell>
               <TableCell>
                 <Tooltip title="Edit">

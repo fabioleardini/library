@@ -25,7 +25,7 @@ namespace Library.Application.Interfaces
         /// <summary>
         /// Searches for books based on specified criteria
         /// </summary>
-        /// <param name="searchBy">The field to search by (Title, Author, ISBN)</param>
+        /// <param name="searchBy">The field to search by (Title, Author, ISBN, Status)</param>
         /// <param name="searchValue">The value to search for</param>
         /// <returns>A collection of books matching the search criteria</returns>
         Task<IEnumerable<Book>> SearchBooksAsync(string searchBy, string searchValue);
@@ -41,7 +41,7 @@ namespace Library.Application.Interfaces
         /// <summary>
         /// Searches for books based on specified criteria with pagination
         /// </summary>
-        /// <param name="searchBy">The field to search by (Title, Author, ISBN)</param>
+        /// <param name="searchBy">The field to search by (Title, Author, ISBN, Status)</param>
         /// <param name="searchValue">The value to search for</param>
         /// <param name="page">The page number (1-based)</param>
         /// <param name="pageSize">The number of items per page</param>

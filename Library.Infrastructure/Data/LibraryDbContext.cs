@@ -47,9 +47,11 @@ namespace Library.Infrastructure.Data
                 entity.HasIndex(e => e.ISBN).IsUnique().HasDatabaseName("IX_Books_ISBN_Unique");
 
                 entity.HasIndex(e => e.Category).HasDatabaseName("IX_Books_Category");
+                entity.HasIndex(e => e.Status).HasDatabaseName("IX_Books_Status");
                 
                 // Composite indexes for common search patterns
                 entity.HasIndex(e => new { e.FirstName, e.LastName }).HasDatabaseName("IX_Books_Author");
+                entity.HasIndex(e => new { e.Category, e.Status }).HasDatabaseName("IX_Books_Category_Status");
 
                 
                 // Ignore derived properties
@@ -78,7 +80,8 @@ namespace Library.Infrastructure.Data
                     CopiesInUse = 80,
                     Type = "Hardcover",
                     ISBN = "1234567891",
-                    Category = "Fiction"
+                    Category = "Fiction",
+                    Status = OwnershipStatus.Own
                 },
                 new Book
                 {
@@ -90,7 +93,8 @@ namespace Library.Infrastructure.Data
                     CopiesInUse = 65,
                     Type = "Paperback",
                     ISBN = "1234567892",
-                    Category = "Fiction"
+                    Category = "Fiction",
+                    Status = OwnershipStatus.Love
                 },
                 new Book
                 {
@@ -102,7 +106,8 @@ namespace Library.Infrastructure.Data
                     CopiesInUse = 45,
                     Type = "Hardcover",
                     ISBN = "1234567893",
-                    Category = "Fiction"
+                    Category = "Fiction",
+                    Status = OwnershipStatus.WantToRead
                 },
                 new Book
                 {
@@ -114,7 +119,8 @@ namespace Library.Infrastructure.Data
                     CopiesInUse = 22,
                     Type = "Hardcover",
                     ISBN = "1234567894",
-                    Category = "Non-Fiction"
+                    Category = "Non-Fiction",
+                    Status = OwnershipStatus.Own
                 },
                 new Book
                 {
@@ -126,7 +132,8 @@ namespace Library.Infrastructure.Data
                     CopiesInUse = 35,
                     Type = "Hardcover",
                     ISBN = "1234567895",
-                    Category = "Biography"
+                    Category = "Biography",
+                    Status = OwnershipStatus.Love
                 },
                 new Book
                 {
@@ -138,7 +145,8 @@ namespace Library.Infrastructure.Data
                     CopiesInUse = 11,
                     Type = "Hardcover",
                     ISBN = "1234567896",
-                    Category = "Mystery"
+                    Category = "Mystery",
+                    Status = OwnershipStatus.WantToRead
                 },
                 new Book
                 {
@@ -150,7 +158,8 @@ namespace Library.Infrastructure.Data
                     CopiesInUse = 14,
                     Type = "Paperback",
                     ISBN = "1234567897",
-                    Category = "Sci-Fi"
+                    Category = "Sci-Fi",
+                    Status = OwnershipStatus.Own
                 },
                 new Book
                 {
@@ -162,7 +171,8 @@ namespace Library.Infrastructure.Data
                     CopiesInUse = 40,
                     Type = "Paperback",
                     ISBN = "1234567898",
-                    Category = "Sci-Fi"
+                    Category = "Sci-Fi",
+                    Status = OwnershipStatus.Love
                 },
                 new Book
                 {
@@ -174,7 +184,8 @@ namespace Library.Infrastructure.Data
                     CopiesInUse = 35,
                     Type = "Hardcover",
                     ISBN = "1234567899",
-                    Category = "Fiction"
+                    Category = "Fiction",
+                    Status = OwnershipStatus.WantToRead
                 },
                 new Book
                 {
@@ -186,7 +197,8 @@ namespace Library.Infrastructure.Data
                     CopiesInUse = 35,
                     Type = "Paperback",
                     ISBN = "1234567900",
-                    Category = "Non-Fiction"
+                    Category = "Non-Fiction",
+                    Status = OwnershipStatus.Own
                 },
                 new Book
                 {
@@ -198,7 +210,8 @@ namespace Library.Infrastructure.Data
                     CopiesInUse = 8,
                     Type = "Hardcover",
                     ISBN = "8901234567",
-                    Category = "Fiction"
+                    Category = "Fiction",
+                    Status = OwnershipStatus.Love
                 },
                 new Book
                 {
@@ -210,7 +223,8 @@ namespace Library.Infrastructure.Data
                     CopiesInUse = 0,
                     Type = "Paperback",
                     ISBN = "9012345678",
-                    Category = "Non-Fiction"
+                    Category = "Non-Fiction",
+                    Status = OwnershipStatus.WantToRead
                 },
                 new Book
                 {
@@ -222,7 +236,8 @@ namespace Library.Infrastructure.Data
                     CopiesInUse = 1,
                     Type = "Hardcover",
                     ISBN = "0123456789",
-                    Category = "Non-Fiction"
+                    Category = "Non-Fiction",
+                    Status = OwnershipStatus.Own
                 }
             );
         }

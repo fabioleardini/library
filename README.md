@@ -21,7 +21,7 @@ Royal Library is a full-stack book management system that allows users to search
 - Material-UI for UI components
 
 ### Backend
-- ASP.NET Core 7.0 Web API
+- ASP.NET Core 9.0 Web API
 - Clean Architecture pattern
   - Domain layer: Core entities and interfaces
   - Application layer: Business logic and services
@@ -42,7 +42,7 @@ Royal Library is a full-stack book management system that allows users to search
 ## Getting Started
 
 ### Prerequisites
-- .NET 7.0 SDK
+- .NET 9.0 SDK
 - Node.js and npm
 
 ### Running the Backend

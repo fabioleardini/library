@@ -71,7 +71,7 @@ namespace Library.API.Controllers
         /// <summary>
         /// Searches for books based on specified criteria
         /// </summary>
-        /// <param name="searchBy">The field to search by (Title, Author, ISBN)</param>
+        /// <param name="searchBy">The field to search by (Title, Author, ISBN, Status)</param>
         /// <param name="searchValue">The value to search for</param>
         /// <returns>A collection of books matching the search criteria</returns>
         /// <response code="200">Returns the matching books</response>
@@ -81,12 +81,12 @@ namespace Library.API.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [SwaggerOperation(
             Summary = "Searches for books",
-            Description = "Searches for books based on specified criteria (Title, Author, ISBN)",
+            Description = "Searches for books based on specified criteria (Title, Author, ISBN, Status)",
             OperationId = "SearchBooks",
             Tags = new[] { "Books" })]
         public async Task<ActionResult<IEnumerable<Book>>> SearchBooks(
             [FromQuery, Required] 
-            [SwaggerParameter(Description = "Field to search by (Title, Author, ISBN)", Required = true)]
+            [SwaggerParameter(Description = "Field to search by (Title, Author, ISBN, Status)", Required = true)]
             string searchBy, 
             [FromQuery, Required] 
             [SwaggerParameter(Description = "Value to search for", Required = true)]
@@ -127,7 +127,7 @@ namespace Library.API.Controllers
         /// <summary>
         /// Searches for books based on specified criteria with pagination
         /// </summary>
-        /// <param name="searchBy">The field to search by (Title, Author, ISBN)</param>
+        /// <param name="searchBy">The field to search by (Title, Author, ISBN, Status)</param>
         /// <param name="searchValue">The value to search for</param>
         /// <param name="page">The page number (1-based, default: 1)</param>
         /// <param name="pageSize">The number of items per page (default: 20, max: 100)</param>

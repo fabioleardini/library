@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Library.Infrastructure.Migrations
 {
     [DbContext(typeof(LibraryDbContext))]
-    [Migration("20250719213952_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250719221519_InitialCreateWithStatus")]
+    partial class InitialCreateWithStatus
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -50,6 +50,9 @@ namespace Library.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -80,8 +83,14 @@ namespace Library.Infrastructure.Migrations
                     b.HasIndex("LastName")
                         .HasDatabaseName("IX_Books_LastName");
 
+                    b.HasIndex("Status")
+                        .HasDatabaseName("IX_Books_Status");
+
                     b.HasIndex("Title")
                         .HasDatabaseName("IX_Books_Title");
+
+                    b.HasIndex("Category", "Status")
+                        .HasDatabaseName("IX_Books_Category_Status");
 
                     b.HasIndex("FirstName", "LastName")
                         .HasDatabaseName("IX_Books_Author");
@@ -97,6 +106,7 @@ namespace Library.Infrastructure.Migrations
                             FirstName = "Jane",
                             ISBN = "1234567891",
                             LastName = "Austen",
+                            Status = 0,
                             Title = "Pride and Prejudice",
                             TotalCopies = 100,
                             Type = "Hardcover"
@@ -109,6 +119,7 @@ namespace Library.Infrastructure.Migrations
                             FirstName = "Harper",
                             ISBN = "1234567892",
                             LastName = "Lee",
+                            Status = 1,
                             Title = "To Kill a Mockingbird",
                             TotalCopies = 75,
                             Type = "Paperback"
@@ -121,6 +132,7 @@ namespace Library.Infrastructure.Migrations
                             FirstName = "J.D.",
                             ISBN = "1234567893",
                             LastName = "Salinger",
+                            Status = 2,
                             Title = "The Catcher in the Rye",
                             TotalCopies = 50,
                             Type = "Hardcover"
@@ -133,6 +145,7 @@ namespace Library.Infrastructure.Migrations
                             FirstName = "F. Scott",
                             ISBN = "1234567894",
                             LastName = "Fitzgerald",
+                            Status = 0,
                             Title = "The Great Gatsby",
                             TotalCopies = 50,
                             Type = "Hardcover"
@@ -145,6 +158,7 @@ namespace Library.Infrastructure.Migrations
                             FirstName = "Paulo",
                             ISBN = "1234567895",
                             LastName = "Coelho",
+                            Status = 1,
                             Title = "The Alchemist",
                             TotalCopies = 50,
                             Type = "Hardcover"
@@ -157,6 +171,7 @@ namespace Library.Infrastructure.Migrations
                             FirstName = "Markus",
                             ISBN = "1234567896",
                             LastName = "Zusak",
+                            Status = 2,
                             Title = "The Book Thief",
                             TotalCopies = 75,
                             Type = "Hardcover"
@@ -169,6 +184,7 @@ namespace Library.Infrastructure.Migrations
                             FirstName = "C.S.",
                             ISBN = "1234567897",
                             LastName = "Lewis",
+                            Status = 0,
                             Title = "The Chronicles of Narnia",
                             TotalCopies = 100,
                             Type = "Paperback"
@@ -181,6 +197,7 @@ namespace Library.Infrastructure.Migrations
                             FirstName = "Dan",
                             ISBN = "1234567898",
                             LastName = "Brown",
+                            Status = 1,
                             Title = "The Da Vinci Code",
                             TotalCopies = 50,
                             Type = "Paperback"
@@ -193,6 +210,7 @@ namespace Library.Infrastructure.Migrations
                             FirstName = "John",
                             ISBN = "1234567899",
                             LastName = "Steinbeck",
+                            Status = 2,
                             Title = "The Grapes of Wrath",
                             TotalCopies = 50,
                             Type = "Hardcover"
@@ -205,6 +223,7 @@ namespace Library.Infrastructure.Migrations
                             FirstName = "Douglas",
                             ISBN = "1234567900",
                             LastName = "Adams",
+                            Status = 0,
                             Title = "The Hitchhiker's Guide to the Galaxy",
                             TotalCopies = 50,
                             Type = "Paperback"
@@ -217,6 +236,7 @@ namespace Library.Infrastructure.Migrations
                             FirstName = "Herman",
                             ISBN = "8901234567",
                             LastName = "Melville",
+                            Status = 1,
                             Title = "Moby-Dick",
                             TotalCopies = 30,
                             Type = "Hardcover"
@@ -229,6 +249,7 @@ namespace Library.Infrastructure.Migrations
                             FirstName = "Harper",
                             ISBN = "9012345678",
                             LastName = "Lee",
+                            Status = 2,
                             Title = "To Kill a Mockingbird",
                             TotalCopies = 20,
                             Type = "Paperback"
@@ -241,6 +262,7 @@ namespace Library.Infrastructure.Migrations
                             FirstName = "J.D.",
                             ISBN = "0123456789",
                             LastName = "Salinger",
+                            Status = 0,
                             Title = "The Catcher in the Rye",
                             TotalCopies = 10,
                             Type = "Hardcover"

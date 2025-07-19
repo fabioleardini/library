@@ -12,7 +12,7 @@ import {
   SelectChangeEvent 
 } from '@mui/material';
 import { BookService } from '../services/BookService';
-import { Book } from '../models/Book';
+import { Book, OwnershipStatus } from '../models/Book';
 import { PagedResult } from '../models/PagedResult';
 import BookTable from './BookTable';
 import Pagination from './Pagination';
@@ -80,17 +80,33 @@ const BookSearch: React.FC = () => {
               <MenuItem value="title">Title</MenuItem>
               <MenuItem value="author">Author</MenuItem>
               <MenuItem value="isbn">ISBN</MenuItem>
-
+              <MenuItem value="status">Ownership Status</MenuItem>
             </Select>
           </FormControl>
           
-          <TextField
-            label="Search Value"
-            variant="outlined"
-            fullWidth
-            value={searchValue}
-            onChange={handleSearchValueChange}
-          />
+          {searchBy === 'status' ? (
+            <FormControl fullWidth>
+              <InputLabel id="status-search-label">Ownership Status</InputLabel>
+              <Select
+                labelId="status-search-label"
+                value={searchValue}
+                label="Ownership Status"
+                onChange={(e) => setSearchValue(e.target.value as string)}
+              >
+                <MenuItem value={OwnershipStatus.Own}>Own</MenuItem>
+                <MenuItem value={OwnershipStatus.Love}>Love</MenuItem>
+                <MenuItem value={OwnershipStatus.WantToRead}>Want to Read</MenuItem>
+              </Select>
+            </FormControl>
+          ) : (
+            <TextField
+              label="Search Value"
+              variant="outlined"
+              fullWidth
+              value={searchValue}
+              onChange={handleSearchValueChange}
+            />
+          )}
           
           <Button 
             variant="contained" 

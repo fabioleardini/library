@@ -51,7 +51,10 @@ namespace Library.Application.Services
                 "title" => await _bookRepository.SearchBooksByTitleAsync(searchValue),
                 "author" => await _bookRepository.SearchBooksByAuthorAsync(searchValue),
                 "isbn" => await _bookRepository.SearchBooksByISBNAsync(searchValue),
-                _ => await GetAllBooksAsync()
+                "status" => Enum.TryParse<OwnershipStatus>(searchValue, true, out var status) 
+                    ? await _bookRepository.SearchBooksByOwnershipStatusAsync(status)
+                    : throw new ArgumentException("Invalid ownership status"),
+                _ => throw new ArgumentException("Invalid search criteria")
             };
         }
 
@@ -90,7 +93,10 @@ namespace Library.Application.Services
                 "title" => await _bookRepository.SearchBooksByTitlePagedAsync(searchValue, page, pageSize),
                 "author" => await _bookRepository.SearchBooksByAuthorPagedAsync(searchValue, page, pageSize),
                 "isbn" => await _bookRepository.SearchBooksByISBNPagedAsync(searchValue, page, pageSize),
-                _ => await GetAllBooksPagedAsync(page, pageSize)
+                "status" => Enum.TryParse<OwnershipStatus>(searchValue, true, out var status) 
+                    ? await _bookRepository.SearchBooksByOwnershipStatusPagedAsync(status, page, pageSize)
+                    : throw new ArgumentException("Invalid ownership status"),
+                _ => throw new ArgumentException("Invalid search criteria")
             };
         }
     }

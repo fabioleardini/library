@@ -128,6 +128,31 @@ namespace Library.Infrastructure.Repositories
             return new PagedResult<Book>(books, totalCount, page, pageSize);
         }
 
+        /// <inheritdoc/>
+        public async Task<IEnumerable<Book>> SearchBooksByOwnershipStatusAsync(OwnershipStatus status)
+        {
+            return await _context.Books
+                .AsNoTracking()
+                .Where(b => b.Status == status)
+                .ToListAsync();
+        }
+
+        /// <inheritdoc/>
+        public async Task<PagedResult<Book>> SearchBooksByOwnershipStatusPagedAsync(OwnershipStatus status, int page = 1, int pageSize = 20)
+        {
+            var query = _context.Books
+                .AsNoTracking()
+                .Where(b => b.Status == status);
+            
+            var totalCount = await query.CountAsync();
+            var books = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+            
+            return new PagedResult<Book>(books, totalCount, page, pageSize);
+        }
+
 
 
         /// <inheritdoc/>
@@ -141,7 +166,21 @@ namespace Library.Infrastructure.Repositories
         /// <inheritdoc/>
         public async Task<Book> UpdateBookAsync(Book book)
         {
-            _context.Entry(book).State = EntityState.Modified;
+            // Check if there's already a tracked entity with the same key
+            var trackedEntity = _context.ChangeTracker.Entries<Book>()
+                .FirstOrDefault(e => e.Entity.Id == book.Id);
+            
+            if (trackedEntity != null)
+            {
+                // Update the values of the tracked entity
+                _context.Entry(trackedEntity.Entity).CurrentValues.SetValues(book);
+            }
+            else
+            {
+                // No tracked entity, so attach and mark as modified
+                _context.Entry(book).State = EntityState.Modified;
+            }
+            
             await _context.SaveChangesAsync();
             return book;
         }
