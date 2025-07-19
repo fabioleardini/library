@@ -1,4 +1,5 @@
 import { Book } from '../models/Book';
+import { PagedResult } from '../models/PagedResult';
 
 // Update API URL to match the port in launchSettings.json
 const API_URL = 'http://localhost:5007/api';
@@ -63,5 +64,21 @@ export const BookService = {
     if (!response.ok) {
       throw new Error('Failed to delete book');
     }
+  },
+
+  getAllBooksPaged: async (page: number = 1, pageSize: number = 20): Promise<PagedResult<Book>> => {
+    const response = await fetch(`${API_URL}/books/paged?page=${page}&pageSize=${pageSize}`);
+    if (!response.ok) {
+      throw new Error('Failed to fetch paged books');
+    }
+    return response.json();
+  },
+
+  searchBooksPaged: async (searchBy: string, searchValue: string, page: number = 1, pageSize: number = 20): Promise<PagedResult<Book>> => {
+    const response = await fetch(`${API_URL}/books/search/paged?searchBy=${searchBy}&searchValue=${searchValue}&page=${page}&pageSize=${pageSize}`);
+    if (!response.ok) {
+      throw new Error('Failed to search paged books');
+    }
+    return response.json();
   },
 };

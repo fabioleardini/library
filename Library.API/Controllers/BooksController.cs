@@ -100,6 +100,58 @@ namespace Library.API.Controllers
         }
 
         /// <summary>
+        /// Gets all books in the library with pagination
+        /// </summary>
+        /// <param name="page">The page number (1-based, default: 1)</param>
+        /// <param name="pageSize">The number of items per page (default: 20, max: 100)</param>
+        /// <returns>A paged result of books</returns>
+        [HttpGet("paged")]
+        public async Task<ActionResult<PagedResult<Book>>> GetAllBooksPaged([FromQuery] int page = 1, [FromQuery] int pageSize = 20)
+        {
+            try
+            {
+                // Validate pagination parameters
+                if (page < 1) page = 1;
+                if (pageSize < 1) pageSize = 20;
+                if (pageSize > 100) pageSize = 100; // Limit max page size
+
+                var pagedBooks = await _bookService.GetAllBooksPagedAsync(page, pageSize);
+                return Ok(pagedBooks);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        /// <summary>
+        /// Searches for books based on specified criteria with pagination
+        /// </summary>
+        /// <param name="searchBy">The field to search by (Title, Author, ISBN, Status)</param>
+        /// <param name="searchValue">The value to search for</param>
+        /// <param name="page">The page number (1-based, default: 1)</param>
+        /// <param name="pageSize">The number of items per page (default: 20, max: 100)</param>
+        /// <returns>A paged result of books matching the search criteria</returns>
+        [HttpGet("search/paged")]
+        public async Task<ActionResult<PagedResult<Book>>> SearchBooksPaged([FromQuery] string searchBy, [FromQuery] string searchValue, [FromQuery] int page = 1, [FromQuery] int pageSize = 20)
+        {
+            try
+            {
+                // Validate pagination parameters
+                if (page < 1) page = 1;
+                if (pageSize < 1) pageSize = 20;
+                if (pageSize > 100) pageSize = 100; // Limit max page size
+
+                var pagedBooks = await _bookService.SearchBooksPagedAsync(searchBy, searchValue, page, pageSize);
+                return Ok(pagedBooks);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, $"Internal server error: {ex.Message}");
+            }
+        }
+
+        /// <summary>
         /// Adds a new book to the library
         /// </summary>
         /// <param name="book">The book information to add</param>

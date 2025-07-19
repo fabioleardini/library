@@ -75,5 +75,29 @@ namespace Library.Application.Services
         {
             return await _bookRepository.DeleteBookAsync(id);
         }
+
+        /// <inheritdoc/>
+        public async Task<PagedResult<Book>> GetAllBooksPagedAsync(int page = 1, int pageSize = 20)
+        {
+            return await _bookRepository.GetAllBooksPagedAsync(page, pageSize);
+        }
+
+        /// <inheritdoc/>
+        public async Task<PagedResult<Book>> SearchBooksPagedAsync(string searchBy, string searchValue, int page = 1, int pageSize = 20)
+        {
+            if (string.IsNullOrWhiteSpace(searchValue))
+                return await GetAllBooksPagedAsync(page, pageSize);
+
+            return searchBy.ToLowerInvariant() switch
+            {
+                "title" => await _bookRepository.SearchBooksByTitlePagedAsync(searchValue, page, pageSize),
+                "author" => await _bookRepository.SearchBooksByAuthorPagedAsync(searchValue, page, pageSize),
+                "isbn" => await _bookRepository.SearchBooksByISBNPagedAsync(searchValue, page, pageSize),
+                "status" => Enum.TryParse<Book.OwnershipStatus>(searchValue, true, out var status) 
+                    ? await _bookRepository.SearchBooksByOwnershipStatusPagedAsync(status, page, pageSize)
+                    : new PagedResult<Book>(new List<Book>(), 0, page, pageSize),
+                _ => await GetAllBooksPagedAsync(page, pageSize)
+            };
+        }
     }
 }

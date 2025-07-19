@@ -51,6 +51,50 @@ namespace Library.Domain.Interfaces
         Task<IEnumerable<Book>> SearchBooksByOwnershipStatusAsync(Book.OwnershipStatus status);
         
         /// <summary>
+        /// Gets all books with pagination
+        /// </summary>
+        /// <param name="page">The page number (1-based)</param>
+        /// <param name="pageSize">The number of items per page</param>
+        /// <returns>A paginated result of books</returns>
+        Task<PagedResult<Book>> GetAllBooksPagedAsync(int page = 1, int pageSize = 20);
+        
+        /// <summary>
+        /// Searches for books by title with pagination
+        /// </summary>
+        /// <param name="title">The title to search for</param>
+        /// <param name="page">The page number (1-based)</param>
+        /// <param name="pageSize">The number of items per page</param>
+        /// <returns>A paginated result of books matching the title</returns>
+        Task<PagedResult<Book>> SearchBooksByTitlePagedAsync(string title, int page = 1, int pageSize = 20);
+        
+        /// <summary>
+        /// Searches for books by author name with pagination
+        /// </summary>
+        /// <param name="author">The author name to search for</param>
+        /// <param name="page">The page number (1-based)</param>
+        /// <param name="pageSize">The number of items per page</param>
+        /// <returns>A paginated result of books matching the author</returns>
+        Task<PagedResult<Book>> SearchBooksByAuthorPagedAsync(string author, int page = 1, int pageSize = 20);
+        
+        /// <summary>
+        /// Searches for books by ISBN with pagination
+        /// </summary>
+        /// <param name="isbn">The ISBN to search for</param>
+        /// <param name="page">The page number (1-based)</param>
+        /// <param name="pageSize">The number of items per page</param>
+        /// <returns>A paginated result of books matching the ISBN</returns>
+        Task<PagedResult<Book>> SearchBooksByISBNPagedAsync(string isbn, int page = 1, int pageSize = 20);
+        
+        /// <summary>
+        /// Searches for books by ownership status with pagination
+        /// </summary>
+        /// <param name="status">The ownership status to search for</param>
+        /// <param name="page">The page number (1-based)</param>
+        /// <param name="pageSize">The number of items per page</param>
+        /// <returns>A paginated result of books matching the ownership status</returns>
+        Task<PagedResult<Book>> SearchBooksByOwnershipStatusPagedAsync(Book.OwnershipStatus status, int page = 1, int pageSize = 20);
+        
+        /// <summary>
         /// Adds a new book to the repository
         /// </summary>
         /// <param name="book">The book to add</param>

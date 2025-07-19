@@ -40,6 +40,18 @@ namespace Library.Infrastructure.Data
                 entity.Property(e => e.ISBN).HasMaxLength(20);
                 entity.Property(e => e.Category).HasMaxLength(50);
                 
+                // Performance indexes for search operations
+                entity.HasIndex(e => e.Title).HasDatabaseName("IX_Books_Title");
+                entity.HasIndex(e => e.FirstName).HasDatabaseName("IX_Books_FirstName");
+                entity.HasIndex(e => e.LastName).HasDatabaseName("IX_Books_LastName");
+                entity.HasIndex(e => e.ISBN).IsUnique().HasDatabaseName("IX_Books_ISBN_Unique");
+                entity.HasIndex(e => e.Status).HasDatabaseName("IX_Books_Status");
+                entity.HasIndex(e => e.Category).HasDatabaseName("IX_Books_Category");
+                
+                // Composite indexes for common search patterns
+                entity.HasIndex(e => new { e.FirstName, e.LastName }).HasDatabaseName("IX_Books_Author");
+                entity.HasIndex(e => new { e.Category, e.Status }).HasDatabaseName("IX_Books_Category_Status");
+                
                 // Ignore derived properties
                 entity.Ignore(e => e.Author);
                 entity.Ignore(e => e.AvailableCopies);

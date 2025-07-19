@@ -31,6 +31,24 @@ namespace Library.Application.Interfaces
         Task<IEnumerable<Book>> SearchBooksAsync(string searchBy, string searchValue);
         
         /// <summary>
+        /// Gets all books in the library with pagination
+        /// </summary>
+        /// <param name="page">The page number (1-based)</param>
+        /// <param name="pageSize">The number of items per page</param>
+        /// <returns>A paged result of books</returns>
+        Task<PagedResult<Book>> GetAllBooksPagedAsync(int page = 1, int pageSize = 20);
+        
+        /// <summary>
+        /// Searches for books based on specified criteria with pagination
+        /// </summary>
+        /// <param name="searchBy">The field to search by (Title, Author, ISBN, Status)</param>
+        /// <param name="searchValue">The value to search for</param>
+        /// <param name="page">The page number (1-based)</param>
+        /// <param name="pageSize">The number of items per page</param>
+        /// <returns>A paged result of books matching the search criteria</returns>
+        Task<PagedResult<Book>> SearchBooksPagedAsync(string searchBy, string searchValue, int page = 1, int pageSize = 20);
+        
+        /// <summary>
         /// Adds a new book to the library
         /// </summary>
         /// <param name="book">The book information to add</param>

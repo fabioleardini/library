@@ -13,15 +13,19 @@ import {
 } from '@mui/material';
 import { BookService } from '../services/BookService';
 import { Book } from '../models/Book';
+import { PagedResult } from '../models/PagedResult';
 import BookTable from './BookTable';
+import Pagination from './Pagination';
 
 const BookSearch: React.FC = () => {
   const [searchBy, setSearchBy] = useState<string>('');
   const [searchValue, setSearchValue] = useState<string>('');
-  const [books, setBooks] = useState<Book[]>([]);
+  const [pagedResult, setPagedResult] = useState<PagedResult<Book> | null>(null);
   const [searched, setSearched] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [pageSize] = useState<number>(10);
 
   const handleSearchByChange = (event: SelectChangeEvent) => {
     setSearchBy(event.target.value as string);
@@ -31,7 +35,7 @@ const BookSearch: React.FC = () => {
     setSearchValue(event.target.value);
   };
 
-  const handleSearch = async () => {
+  const handleSearch = async (page: number = 1) => {
     if (!searchBy || !searchValue) {
       setError('Please select search criteria and enter a search value');
       return;
@@ -41,15 +45,20 @@ const BookSearch: React.FC = () => {
     setError(null);
 
     try {
-      const results = await BookService.searchBooks(searchBy, searchValue);
-      setBooks(results);
+      const results = await BookService.searchBooksPaged(searchBy, searchValue, page, pageSize);
+      setPagedResult(results);
       setSearched(true);
+      setCurrentPage(page);
     } catch (err) {
       setError('Failed to search books. Please try again.');
       console.error(err);
     } finally {
       setLoading(false);
     }
+  };
+
+  const handlePageChange = (page: number) => {
+    handleSearch(page);
   };
 
   return (
@@ -85,7 +94,7 @@ const BookSearch: React.FC = () => {
           
           <Button 
             variant="contained" 
-            onClick={handleSearch}
+            onClick={() => handleSearch()}
             disabled={loading}
           >
             Search
@@ -104,10 +113,23 @@ const BookSearch: React.FC = () => {
           <Typography variant="h5" gutterBottom>
             Search Results:
           </Typography>
-          {books.length > 0 ? (
-            <BookTable books={books} />
+          {pagedResult && pagedResult.items.length > 0 ? (
+            <>
+              <Typography variant="body2" sx={{ mb: 2, color: 'text.secondary' }}>
+                Found {pagedResult.totalCount} books matching your search
+                (Page {pagedResult.currentPage} of {pagedResult.totalPages})
+              </Typography>
+              <BookTable books={pagedResult.items} />
+              <Pagination
+                currentPage={pagedResult.currentPage}
+                totalPages={pagedResult.totalPages}
+                onPageChange={handlePageChange}
+                hasPreviousPage={pagedResult.hasPreviousPage}
+                hasNextPage={pagedResult.hasNextPage}
+              />
+            </>
           ) : (
-            <Typography>No books found matching your search criteria.</Typography>
+            !loading && <Typography>No books found matching your search criteria.</Typography>
           )}
         </Box>
       )}

@@ -27,7 +27,7 @@ namespace Library.Infrastructure.Repositories
         /// <inheritdoc/>
         public async Task<IEnumerable<Book>> GetAllBooksAsync()
         {
-            return await _context.Books.ToListAsync();
+            return await _context.Books.AsNoTracking().ToListAsync();
         }
 
         /// <inheritdoc/>
@@ -40,15 +40,18 @@ namespace Library.Infrastructure.Repositories
         public async Task<IEnumerable<Book>> SearchBooksByTitleAsync(string title)
         {
             return await _context.Books
-                .Where(b => b.Title.Contains(title))
+                .AsNoTracking()
+                .Where(b => b.Title.ToLower().Contains(title.ToLower()))
                 .ToListAsync();
         }
 
         /// <inheritdoc/>
         public async Task<IEnumerable<Book>> SearchBooksByAuthorAsync(string author)
         {
+            var lowerAuthor = author.ToLower();
             return await _context.Books
-                .Where(b => b.FirstName.Contains(author) || b.LastName.Contains(author))
+                .AsNoTracking()
+                .Where(b => b.FirstName.ToLower().Contains(lowerAuthor) || b.LastName.ToLower().Contains(lowerAuthor))
                 .ToListAsync();
         }
 
@@ -56,7 +59,8 @@ namespace Library.Infrastructure.Repositories
         public async Task<IEnumerable<Book>> SearchBooksByISBNAsync(string isbn)
         {
             return await _context.Books
-                .Where(b => b.ISBN.Contains(isbn))
+                .AsNoTracking()
+                .Where(b => b.ISBN.ToLower().Contains(isbn.ToLower()))
                 .ToListAsync();
         }
 
@@ -64,8 +68,87 @@ namespace Library.Infrastructure.Repositories
         public async Task<IEnumerable<Book>> SearchBooksByOwnershipStatusAsync(Book.OwnershipStatus status)
         {
             return await _context.Books
+                .AsNoTracking()
                 .Where(b => b.Status == status)
                 .ToListAsync();
+        }
+
+        /// <inheritdoc/>
+        public async Task<PagedResult<Book>> GetAllBooksPagedAsync(int page = 1, int pageSize = 20)
+        {
+            var query = _context.Books.AsNoTracking();
+            var totalCount = await query.CountAsync();
+            var books = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+            
+            return new PagedResult<Book>(books, totalCount, page, pageSize);
+        }
+
+        /// <inheritdoc/>
+        public async Task<PagedResult<Book>> SearchBooksByTitlePagedAsync(string title, int page = 1, int pageSize = 20)
+        {
+            var query = _context.Books
+                .AsNoTracking()
+                .Where(b => b.Title.ToLower().Contains(title.ToLower()));
+            
+            var totalCount = await query.CountAsync();
+            var books = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+            
+            return new PagedResult<Book>(books, totalCount, page, pageSize);
+        }
+
+        /// <inheritdoc/>
+        public async Task<PagedResult<Book>> SearchBooksByAuthorPagedAsync(string author, int page = 1, int pageSize = 20)
+        {
+            var lowerAuthor = author.ToLower();
+            var query = _context.Books
+                .AsNoTracking()
+                .Where(b => b.FirstName.ToLower().Contains(lowerAuthor) || b.LastName.ToLower().Contains(lowerAuthor));
+            
+            var totalCount = await query.CountAsync();
+            var books = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+            
+            return new PagedResult<Book>(books, totalCount, page, pageSize);
+        }
+
+        /// <inheritdoc/>
+        public async Task<PagedResult<Book>> SearchBooksByISBNPagedAsync(string isbn, int page = 1, int pageSize = 20)
+        {
+            var query = _context.Books
+                .AsNoTracking()
+                .Where(b => b.ISBN.ToLower().Contains(isbn.ToLower()));
+            
+            var totalCount = await query.CountAsync();
+            var books = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+            
+            return new PagedResult<Book>(books, totalCount, page, pageSize);
+        }
+
+        /// <inheritdoc/>
+        public async Task<PagedResult<Book>> SearchBooksByOwnershipStatusPagedAsync(Book.OwnershipStatus status, int page = 1, int pageSize = 20)
+        {
+            var query = _context.Books
+                .AsNoTracking()
+                .Where(b => b.Status == status);
+            
+            var totalCount = await query.CountAsync();
+            var books = await query
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+            
+            return new PagedResult<Book>(books, totalCount, page, pageSize);
         }
 
         /// <inheritdoc/>
