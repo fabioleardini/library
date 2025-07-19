@@ -1,14 +1,15 @@
+using Library.Application.Interfaces;
+using Library.Application.Services;
+using Library.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.IO;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 // Register services
-builder.Services.AddScoped<Library.Application.Interfaces.IBookService, Library.Application.Services.BookService>();
-builder.Services.AddScoped<Library.Application.Interfaces.IBookRepository, Library.Infrastructure.Repositories.BookRepository>();
+builder.Services.AddScoped<IBookService, BookService>();
+builder.Services.AddScoped<IBookRepository, BookRepository>();
 
 // Configure DbContext
 builder.Services.AddDbContext<Library.Infrastructure.Data.LibraryDbContext>(options =>

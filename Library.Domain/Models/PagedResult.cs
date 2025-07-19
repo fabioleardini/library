@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 namespace Library.Domain.Models
 {
     /// <summary>

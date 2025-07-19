@@ -2,9 +2,6 @@ using Library.Application.Interfaces;
 using Library.Domain.Models;
 using Library.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Library.Infrastructure.Repositories
 {
