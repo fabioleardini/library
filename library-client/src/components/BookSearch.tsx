@@ -80,7 +80,7 @@ const BookSearch: React.FC = () => {
               <MenuItem value="title">Title</MenuItem>
               <MenuItem value="author">Author</MenuItem>
               <MenuItem value="isbn">ISBN</MenuItem>
-              <MenuItem value="status">Ownership Status</MenuItem>
+
             </Select>
           </FormControl>
           

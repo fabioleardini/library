@@ -64,14 +64,7 @@ namespace Library.Infrastructure.Repositories
                 .ToListAsync();
         }
 
-        /// <inheritdoc/>
-        public async Task<IEnumerable<Book>> SearchBooksByOwnershipStatusAsync(Book.OwnershipStatus status)
-        {
-            return await _context.Books
-                .AsNoTracking()
-                .Where(b => b.Status == status)
-                .ToListAsync();
-        }
+
 
         /// <inheritdoc/>
         public async Task<PagedResult<Book>> GetAllBooksPagedAsync(int page = 1, int pageSize = 20)
@@ -135,21 +128,7 @@ namespace Library.Infrastructure.Repositories
             return new PagedResult<Book>(books, totalCount, page, pageSize);
         }
 
-        /// <inheritdoc/>
-        public async Task<PagedResult<Book>> SearchBooksByOwnershipStatusPagedAsync(Book.OwnershipStatus status, int page = 1, int pageSize = 20)
-        {
-            var query = _context.Books
-                .AsNoTracking()
-                .Where(b => b.Status == status);
-            
-            var totalCount = await query.CountAsync();
-            var books = await query
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
-                .ToListAsync();
-            
-            return new PagedResult<Book>(books, totalCount, page, pageSize);
-        }
+
 
         /// <inheritdoc/>
         public async Task<Book> AddBookAsync(Book book)

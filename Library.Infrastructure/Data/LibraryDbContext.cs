@@ -45,12 +45,12 @@ namespace Library.Infrastructure.Data
                 entity.HasIndex(e => e.FirstName).HasDatabaseName("IX_Books_FirstName");
                 entity.HasIndex(e => e.LastName).HasDatabaseName("IX_Books_LastName");
                 entity.HasIndex(e => e.ISBN).IsUnique().HasDatabaseName("IX_Books_ISBN_Unique");
-                entity.HasIndex(e => e.Status).HasDatabaseName("IX_Books_Status");
+
                 entity.HasIndex(e => e.Category).HasDatabaseName("IX_Books_Category");
                 
                 // Composite indexes for common search patterns
                 entity.HasIndex(e => new { e.FirstName, e.LastName }).HasDatabaseName("IX_Books_Author");
-                entity.HasIndex(e => new { e.Category, e.Status }).HasDatabaseName("IX_Books_Category_Status");
+
                 
                 // Ignore derived properties
                 entity.Ignore(e => e.Author);
@@ -77,9 +77,8 @@ namespace Library.Infrastructure.Data
                     TotalCopies = 100,
                     CopiesInUse = 80,
                     Type = "Hardcover",
-                    ISBN = "123456789",
-                    Category = "Fiction",
-                    Status = Book.OwnershipStatus.Own
+                    ISBN = "1234567891",
+                    Category = "Fiction"
                 },
                 new Book
                 {
@@ -90,9 +89,8 @@ namespace Library.Infrastructure.Data
                     TotalCopies = 75,
                     CopiesInUse = 65,
                     Type = "Paperback",
-                    ISBN = "123456782",
-                    Category = "Fiction",
-                    Status = Book.OwnershipStatus.Love
+                    ISBN = "1234567892",
+                    Category = "Fiction"
                 },
                 new Book
                 {
@@ -103,9 +101,8 @@ namespace Library.Infrastructure.Data
                     TotalCopies = 50,
                     CopiesInUse = 45,
                     Type = "Hardcover",
-                    ISBN = "123456783",
-                    Category = "Fiction",
-                    Status = Book.OwnershipStatus.WantToRead
+                    ISBN = "1234567893",
+                    Category = "Fiction"
                 },
                 new Book
                 {
@@ -113,12 +110,11 @@ namespace Library.Infrastructure.Data
                     Title = "The Great Gatsby",
                     FirstName = "F. Scott",
                     LastName = "Fitzgerald",
-                    TotalCopies = 30,
+                    TotalCopies = 50,
                     CopiesInUse = 22,
                     Type = "Hardcover",
-                    ISBN = "123456784",
-                    Category = "Non-Fiction",
-                    Status = Book.OwnershipStatus.Own
+                    ISBN = "1234567894",
+                    Category = "Non-Fiction"
                 },
                 new Book
                 {
@@ -129,9 +125,8 @@ namespace Library.Infrastructure.Data
                     TotalCopies = 50,
                     CopiesInUse = 35,
                     Type = "Hardcover",
-                    ISBN = "123456785",
-                    Category = "Biography",
-                    Status = Book.OwnershipStatus.Love
+                    ISBN = "1234567895",
+                    Category = "Biography"
                 },
                 new Book
                 {
@@ -142,9 +137,92 @@ namespace Library.Infrastructure.Data
                     TotalCopies = 75,
                     CopiesInUse = 11,
                     Type = "Hardcover",
-                    ISBN = "123456786",
-                    Category = "Mystery",
-                    Status = Book.OwnershipStatus.WantToRead
+                    ISBN = "1234567896",
+                    Category = "Mystery"
+                },
+                new Book
+                {
+                    Id = 7,
+                    Title = "The Chronicles of Narnia",
+                    FirstName = "C.S.",
+                    LastName = "Lewis",
+                    TotalCopies = 100,
+                    CopiesInUse = 14,
+                    Type = "Paperback",
+                    ISBN = "1234567897",
+                    Category = "Sci-Fi"
+                },
+                new Book
+                {
+                    Id = 8,
+                    Title = "The Da Vinci Code",
+                    FirstName = "Dan",
+                    LastName = "Brown",
+                    TotalCopies = 50,
+                    CopiesInUse = 40,
+                    Type = "Paperback",
+                    ISBN = "1234567898",
+                    Category = "Sci-Fi"
+                },
+                new Book
+                {
+                    Id = 9,
+                    Title = "The Grapes of Wrath",
+                    FirstName = "John",
+                    LastName = "Steinbeck",
+                    TotalCopies = 50,
+                    CopiesInUse = 35,
+                    Type = "Hardcover",
+                    ISBN = "1234567899",
+                    Category = "Fiction"
+                },
+                new Book
+                {
+                    Id = 10,
+                    Title = "The Hitchhiker's Guide to the Galaxy",
+                    FirstName = "Douglas",
+                    LastName = "Adams",
+                    TotalCopies = 50,
+                    CopiesInUse = 35,
+                    Type = "Paperback",
+                    ISBN = "1234567900",
+                    Category = "Non-Fiction"
+                },
+                new Book
+                {
+                    Id = 11,
+                    Title = "Moby-Dick",
+                    FirstName = "Herman",
+                    LastName = "Melville",
+                    TotalCopies = 30,
+                    CopiesInUse = 8,
+                    Type = "Hardcover",
+                    ISBN = "8901234567",
+                    Category = "Fiction"
+                },
+                new Book
+                {
+                    Id = 12,
+                    Title = "To Kill a Mockingbird",
+                    FirstName = "Harper",
+                    LastName = "Lee",
+                    TotalCopies = 20,
+                    CopiesInUse = 0,
+                    Type = "Paperback",
+                    ISBN = "9012345678",
+                    Category = "Non-Fiction"
+                },
+                new Book
+                {
+                    Id = 13,
+                    Title = "The Catcher in the Rye",
+                    FirstName = "J.D.",
+                    LastName = "Salinger",
+                    TotalCopies = 10,
+                    CopiesInUse = 1,
+                    Type = "Hardcover",
+                    ISBN = "0123456789",
+                    Category = "Non-Fiction"
                 }
             );
         }

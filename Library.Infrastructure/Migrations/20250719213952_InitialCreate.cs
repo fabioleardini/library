@@ -7,7 +7,7 @@
 namespace Library.Infrastructure.Migrations
 {
     /// <inheritdoc />
-    public partial class AddBookIndexes : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -25,8 +25,7 @@ namespace Library.Infrastructure.Migrations
                     CopiesInUse = table.Column<int>(type: "INTEGER", nullable: false, defaultValue: 0),
                     Type = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
                     ISBN = table.Column<string>(type: "TEXT", maxLength: 20, nullable: false),
-                    Category = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false),
-                    Status = table.Column<int>(type: "INTEGER", nullable: false)
+                    Category = table.Column<string>(type: "TEXT", maxLength: 50, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -35,16 +34,31 @@ namespace Library.Infrastructure.Migrations
 
             migrationBuilder.InsertData(
                 table: "Books",
-                columns: new[] { "Id", "Category", "CopiesInUse", "FirstName", "ISBN", "LastName", "Status", "Title", "TotalCopies", "Type" },
+                columns: new[] { "Id", "Category", "CopiesInUse", "FirstName", "ISBN", "LastName", "Title", "TotalCopies", "Type" },
                 values: new object[,]
                 {
-                    { 1, "Fiction", 80, "Jane", "123456789", "Austen", 0, "Pride and Prejudice", 100, "Hardcover" },
-                    { 2, "Fiction", 65, "Harper", "123456782", "Lee", 1, "To Kill a Mockingbird", 75, "Paperback" },
-                    { 3, "Fiction", 45, "J.D.", "123456783", "Salinger", 2, "The Catcher in the Rye", 50, "Hardcover" },
-                    { 4, "Non-Fiction", 22, "F. Scott", "123456784", "Fitzgerald", 0, "The Great Gatsby", 30, "Hardcover" },
-                    { 5, "Biography", 35, "Paulo", "123456785", "Coelho", 1, "The Alchemist", 50, "Hardcover" },
-                    { 6, "Mystery", 11, "Markus", "123456786", "Zusak", 2, "The Book Thief", 75, "Hardcover" }
+                    { 1, "Fiction", 80, "Jane", "1234567891", "Austen", "Pride and Prejudice", 100, "Hardcover" },
+                    { 2, "Fiction", 65, "Harper", "1234567892", "Lee", "To Kill a Mockingbird", 75, "Paperback" },
+                    { 3, "Fiction", 45, "J.D.", "1234567893", "Salinger", "The Catcher in the Rye", 50, "Hardcover" },
+                    { 4, "Non-Fiction", 22, "F. Scott", "1234567894", "Fitzgerald", "The Great Gatsby", 50, "Hardcover" },
+                    { 5, "Biography", 35, "Paulo", "1234567895", "Coelho", "The Alchemist", 50, "Hardcover" },
+                    { 6, "Mystery", 11, "Markus", "1234567896", "Zusak", "The Book Thief", 75, "Hardcover" },
+                    { 7, "Sci-Fi", 14, "C.S.", "1234567897", "Lewis", "The Chronicles of Narnia", 100, "Paperback" },
+                    { 8, "Sci-Fi", 40, "Dan", "1234567898", "Brown", "The Da Vinci Code", 50, "Paperback" },
+                    { 9, "Fiction", 35, "John", "1234567899", "Steinbeck", "The Grapes of Wrath", 50, "Hardcover" },
+                    { 10, "Non-Fiction", 35, "Douglas", "1234567900", "Adams", "The Hitchhiker's Guide to the Galaxy", 50, "Paperback" },
+                    { 11, "Fiction", 8, "Herman", "8901234567", "Melville", "Moby-Dick", 30, "Hardcover" }
                 });
+
+            migrationBuilder.InsertData(
+                table: "Books",
+                columns: new[] { "Id", "Category", "FirstName", "ISBN", "LastName", "Title", "TotalCopies", "Type" },
+                values: new object[] { 12, "Non-Fiction", "Harper", "9012345678", "Lee", "To Kill a Mockingbird", 20, "Paperback" });
+
+            migrationBuilder.InsertData(
+                table: "Books",
+                columns: new[] { "Id", "Category", "CopiesInUse", "FirstName", "ISBN", "LastName", "Title", "TotalCopies", "Type" },
+                values: new object[] { 13, "Non-Fiction", 1, "J.D.", "0123456789", "Salinger", "The Catcher in the Rye", 10, "Hardcover" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Books_Author",
@@ -55,11 +69,6 @@ namespace Library.Infrastructure.Migrations
                 name: "IX_Books_Category",
                 table: "Books",
                 column: "Category");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Books_Category_Status",
-                table: "Books",
-                columns: new[] { "Category", "Status" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Books_FirstName",
@@ -76,11 +85,6 @@ namespace Library.Infrastructure.Migrations
                 name: "IX_Books_LastName",
                 table: "Books",
                 column: "LastName");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Books_Status",
-                table: "Books",
-                column: "Status");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Books_Title",

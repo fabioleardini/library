@@ -37,7 +37,7 @@ namespace Library.Application.Services
 
         /// <inheritdoc/>
         /// <remarks>
-        /// Supports searching by title, author, ISBN, and ownership status.
+        /// Supports searching by title, author, and ISBN.
         /// If searchValue is empty, returns all books.
         /// If searchBy is not recognized, returns all books.
         /// </remarks>
@@ -51,9 +51,6 @@ namespace Library.Application.Services
                 "title" => await _bookRepository.SearchBooksByTitleAsync(searchValue),
                 "author" => await _bookRepository.SearchBooksByAuthorAsync(searchValue),
                 "isbn" => await _bookRepository.SearchBooksByISBNAsync(searchValue),
-                "status" => Enum.TryParse<Book.OwnershipStatus>(searchValue, true, out var status) 
-                    ? await _bookRepository.SearchBooksByOwnershipStatusAsync(status)
-                    : new List<Book>(),
                 _ => await GetAllBooksAsync()
             };
         }
@@ -93,9 +90,6 @@ namespace Library.Application.Services
                 "title" => await _bookRepository.SearchBooksByTitlePagedAsync(searchValue, page, pageSize),
                 "author" => await _bookRepository.SearchBooksByAuthorPagedAsync(searchValue, page, pageSize),
                 "isbn" => await _bookRepository.SearchBooksByISBNPagedAsync(searchValue, page, pageSize),
-                "status" => Enum.TryParse<Book.OwnershipStatus>(searchValue, true, out var status) 
-                    ? await _bookRepository.SearchBooksByOwnershipStatusPagedAsync(status, page, pageSize)
-                    : new PagedResult<Book>(new List<Book>(), 0, page, pageSize),
                 _ => await GetAllBooksPagedAsync(page, pageSize)
             };
         }

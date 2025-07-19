@@ -43,12 +43,7 @@ namespace Library.Domain.Interfaces
         /// <returns>A collection of books matching the ISBN</returns>
         Task<IEnumerable<Book>> SearchBooksByISBNAsync(string isbn);
         
-        /// <summary>
-        /// Searches for books by ownership status
-        /// </summary>
-        /// <param name="status">The ownership status to search for</param>
-        /// <returns>A collection of books matching the ownership status</returns>
-        Task<IEnumerable<Book>> SearchBooksByOwnershipStatusAsync(Book.OwnershipStatus status);
+
         
         /// <summary>
         /// Gets all books with pagination
@@ -85,14 +80,7 @@ namespace Library.Domain.Interfaces
         /// <returns>A paginated result of books matching the ISBN</returns>
         Task<PagedResult<Book>> SearchBooksByISBNPagedAsync(string isbn, int page = 1, int pageSize = 20);
         
-        /// <summary>
-        /// Searches for books by ownership status with pagination
-        /// </summary>
-        /// <param name="status">The ownership status to search for</param>
-        /// <param name="page">The page number (1-based)</param>
-        /// <param name="pageSize">The number of items per page</param>
-        /// <returns>A paginated result of books matching the ownership status</returns>
-        Task<PagedResult<Book>> SearchBooksByOwnershipStatusPagedAsync(Book.OwnershipStatus status, int page = 1, int pageSize = 20);
+
         
         /// <summary>
         /// Adds a new book to the repository

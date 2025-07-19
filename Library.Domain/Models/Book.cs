@@ -74,22 +74,6 @@ namespace Library.Domain.Models
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public int AvailableCopies => TotalCopies - CopiesInUse;
         
-        /// <summary>
-        /// Represents the ownership status of a book
-        /// </summary>
-        public enum OwnershipStatus
-        {
-            /// <summary>Book is owned by the library</summary>
-            Own,
-            /// <summary>Book is loved by readers</summary>
-            Love,
-            /// <summary>Book is on the wish list</summary>
-            WantToRead
-        }
-        
-        /// <summary>
-        /// The ownership status of the book
-        /// </summary>
-        public OwnershipStatus Status { get; set; } = OwnershipStatus.Own;
+
     }
 }

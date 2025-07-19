@@ -47,9 +47,6 @@ namespace Library.Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("TEXT");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("INTEGER");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -80,14 +77,8 @@ namespace Library.Infrastructure.Migrations
                     b.HasIndex("LastName")
                         .HasDatabaseName("IX_Books_LastName");
 
-                    b.HasIndex("Status")
-                        .HasDatabaseName("IX_Books_Status");
-
                     b.HasIndex("Title")
                         .HasDatabaseName("IX_Books_Title");
-
-                    b.HasIndex("Category", "Status")
-                        .HasDatabaseName("IX_Books_Category_Status");
 
                     b.HasIndex("FirstName", "LastName")
                         .HasDatabaseName("IX_Books_Author");
@@ -101,9 +92,8 @@ namespace Library.Infrastructure.Migrations
                             Category = "Fiction",
                             CopiesInUse = 80,
                             FirstName = "Jane",
-                            ISBN = "123456789",
+                            ISBN = "1234567891",
                             LastName = "Austen",
-                            Status = 0,
                             Title = "Pride and Prejudice",
                             TotalCopies = 100,
                             Type = "Hardcover"
@@ -114,9 +104,8 @@ namespace Library.Infrastructure.Migrations
                             Category = "Fiction",
                             CopiesInUse = 65,
                             FirstName = "Harper",
-                            ISBN = "123456782",
+                            ISBN = "1234567892",
                             LastName = "Lee",
-                            Status = 1,
                             Title = "To Kill a Mockingbird",
                             TotalCopies = 75,
                             Type = "Paperback"
@@ -127,9 +116,8 @@ namespace Library.Infrastructure.Migrations
                             Category = "Fiction",
                             CopiesInUse = 45,
                             FirstName = "J.D.",
-                            ISBN = "123456783",
+                            ISBN = "1234567893",
                             LastName = "Salinger",
-                            Status = 2,
                             Title = "The Catcher in the Rye",
                             TotalCopies = 50,
                             Type = "Hardcover"
@@ -140,11 +128,10 @@ namespace Library.Infrastructure.Migrations
                             Category = "Non-Fiction",
                             CopiesInUse = 22,
                             FirstName = "F. Scott",
-                            ISBN = "123456784",
+                            ISBN = "1234567894",
                             LastName = "Fitzgerald",
-                            Status = 0,
                             Title = "The Great Gatsby",
-                            TotalCopies = 30,
+                            TotalCopies = 50,
                             Type = "Hardcover"
                         },
                         new
@@ -153,9 +140,8 @@ namespace Library.Infrastructure.Migrations
                             Category = "Biography",
                             CopiesInUse = 35,
                             FirstName = "Paulo",
-                            ISBN = "123456785",
+                            ISBN = "1234567895",
                             LastName = "Coelho",
-                            Status = 1,
                             Title = "The Alchemist",
                             TotalCopies = 50,
                             Type = "Hardcover"
@@ -166,11 +152,94 @@ namespace Library.Infrastructure.Migrations
                             Category = "Mystery",
                             CopiesInUse = 11,
                             FirstName = "Markus",
-                            ISBN = "123456786",
+                            ISBN = "1234567896",
                             LastName = "Zusak",
-                            Status = 2,
                             Title = "The Book Thief",
                             TotalCopies = 75,
+                            Type = "Hardcover"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Category = "Sci-Fi",
+                            CopiesInUse = 14,
+                            FirstName = "C.S.",
+                            ISBN = "1234567897",
+                            LastName = "Lewis",
+                            Title = "The Chronicles of Narnia",
+                            TotalCopies = 100,
+                            Type = "Paperback"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Category = "Sci-Fi",
+                            CopiesInUse = 40,
+                            FirstName = "Dan",
+                            ISBN = "1234567898",
+                            LastName = "Brown",
+                            Title = "The Da Vinci Code",
+                            TotalCopies = 50,
+                            Type = "Paperback"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Category = "Fiction",
+                            CopiesInUse = 35,
+                            FirstName = "John",
+                            ISBN = "1234567899",
+                            LastName = "Steinbeck",
+                            Title = "The Grapes of Wrath",
+                            TotalCopies = 50,
+                            Type = "Hardcover"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Category = "Non-Fiction",
+                            CopiesInUse = 35,
+                            FirstName = "Douglas",
+                            ISBN = "1234567900",
+                            LastName = "Adams",
+                            Title = "The Hitchhiker's Guide to the Galaxy",
+                            TotalCopies = 50,
+                            Type = "Paperback"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Category = "Fiction",
+                            CopiesInUse = 8,
+                            FirstName = "Herman",
+                            ISBN = "8901234567",
+                            LastName = "Melville",
+                            Title = "Moby-Dick",
+                            TotalCopies = 30,
+                            Type = "Hardcover"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Category = "Non-Fiction",
+                            CopiesInUse = 0,
+                            FirstName = "Harper",
+                            ISBN = "9012345678",
+                            LastName = "Lee",
+                            Title = "To Kill a Mockingbird",
+                            TotalCopies = 20,
+                            Type = "Paperback"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Category = "Non-Fiction",
+                            CopiesInUse = 1,
+                            FirstName = "J.D.",
+                            ISBN = "0123456789",
+                            LastName = "Salinger",
+                            Title = "The Catcher in the Rye",
+                            TotalCopies = 10,
                             Type = "Hardcover"
                         });
                 });

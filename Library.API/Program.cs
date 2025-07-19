@@ -12,7 +12,7 @@ builder.Services.AddScoped<Library.Application.Interfaces.IBookRepository, Libra
 
 // Configure DbContext
 builder.Services.AddDbContext<Library.Infrastructure.Data.LibraryDbContext>(options =>
-    options.UseInMemoryDatabase("LibraryDb"));
+    options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

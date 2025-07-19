@@ -5,6 +5,7 @@ obj/
 # Visual Studio files
 .vs/
 .vscode/
+
 *.user
 *.userosscache
 *.suo
@@ -317,3 +318,5 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+
+.vercel/

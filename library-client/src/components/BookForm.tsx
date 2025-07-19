@@ -14,7 +14,7 @@ import {
   CircularProgress,
   SelectChangeEvent
 } from '@mui/material';
-import { Book, OwnershipStatus } from '../models/Book';
+import { Book } from '../models/Book';
 import { BookService } from '../services/BookService';
 
 const initialBookState: Omit<Book, 'id' | 'author' | 'availableCopies'> = {
@@ -25,8 +25,7 @@ const initialBookState: Omit<Book, 'id' | 'author' | 'availableCopies'> = {
   copiesInUse: 0,
   type: '',
   isbn: '',
-  category: '',
-  status: OwnershipStatus.Own
+  category: ''
 };
 
 const BookForm: React.FC = () => {
@@ -214,22 +213,7 @@ const BookForm: React.FC = () => {
               />
             </Grid>
 
-            <Grid item xs={12} sm={6}>
-              <FormControl fullWidth>
-                <InputLabel id="status-label">Ownership Status</InputLabel>
-                <Select
-                  labelId="status-label"
-                  name="status"
-                  value={book.status}
-                  label="Ownership Status"
-                  onChange={handleSelectChange}
-                >
-                  <MenuItem value={OwnershipStatus.Own}>Own</MenuItem>
-                  <MenuItem value={OwnershipStatus.Love}>Love</MenuItem>
-                  <MenuItem value={OwnershipStatus.WantToRead}>Want to Read</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
+
 
             <Grid item xs={12} sx={{ mt: 2 }}>
               <Button

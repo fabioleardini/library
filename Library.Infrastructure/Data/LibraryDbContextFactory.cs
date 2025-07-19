@@ -1,5 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Configuration;
+using System.IO;
 
 namespace Library.Infrastructure.Data
 {
@@ -12,8 +14,15 @@ namespace Library.Infrastructure.Data
         {
             var optionsBuilder = new DbContextOptionsBuilder<LibraryDbContext>();
             
-            // Use SQLite for migrations (you can change this to your preferred database)
-            optionsBuilder.UseSqlite("Data Source=library.db");
+            // Build configuration to read from appsettings.json
+            var configuration = new ConfigurationBuilder()
+                .SetBasePath(Path.Combine(Directory.GetCurrentDirectory(), "../Library.API"))
+                .AddJsonFile("appsettings.json", optional: false)
+                .AddJsonFile("appsettings.Development.json", optional: true)
+                .Build();
+            
+            var connectionString = configuration.GetConnectionString("DefaultConnection");
+            optionsBuilder.UseSqlite(connectionString);
             
             return new LibraryDbContext(optionsBuilder.Options);
         }
