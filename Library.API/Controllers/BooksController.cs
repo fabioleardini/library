@@ -1,7 +1,6 @@
 using Library.Application.Interfaces;
 using Library.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
-using Swashbuckle.AspNetCore.Annotations;
 using System.ComponentModel.DataAnnotations;
 
 namespace Library.API.Controllers
@@ -12,7 +11,7 @@ namespace Library.API.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Produces("application/json")]
-    [SwaggerTag("Book Management API")]
+
     public class BooksController : ControllerBase
     {
         private readonly IBookService _bookService;
@@ -29,11 +28,7 @@ namespace Library.API.Controllers
         /// <response code="200">Returns the list of books</response>
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
-        [SwaggerOperation(
-            Summary = "Gets all books",
-            Description = "Retrieves a collection of all books in the library",
-            OperationId = "GetAllBooks",
-            Tags = new[] { "Books" })]
+
         public async Task<ActionResult<IEnumerable<Book>>> GetAllBooks()
         {
             var books = await _bookService.GetAllBooksAsync();
@@ -50,12 +45,8 @@ namespace Library.API.Controllers
         [HttpGet("{id}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [SwaggerOperation(
-            Summary = "Gets a book by ID",
-            Description = "Retrieves a specific book by its unique identifier",
-            OperationId = "GetBookById",
-            Tags = new[] { "Books" })]
-        public async Task<ActionResult<Book>> GetBookById([SwaggerParameter(Description = "The unique identifier of the book", Required = true)] int id)
+
+        public async Task<ActionResult<Book>> GetBookById(int id)
         {
             var book = await _bookService.GetBookByIdAsync(id);
             if (book == null)
@@ -75,17 +66,11 @@ namespace Library.API.Controllers
         [HttpGet("search")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [SwaggerOperation(
-            Summary = "Searches for books",
-            Description = "Searches for books based on specified criteria (Title, Author, ISBN, Status)",
-            OperationId = "SearchBooks",
-            Tags = new[] { "Books" })]
+
         public async Task<ActionResult<IEnumerable<Book>>> SearchBooks(
             [FromQuery, Required] 
-            [SwaggerParameter(Description = "Field to search by (Title, Author, ISBN, Status)", Required = true)]
             string searchBy, 
             [FromQuery, Required] 
-            [SwaggerParameter(Description = "Value to search for", Required = true)]
             string searchValue)
         {
             if (string.IsNullOrWhiteSpace(searchBy) || string.IsNullOrWhiteSpace(searchValue))
@@ -157,11 +142,7 @@ namespace Library.API.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        [SwaggerOperation(
-            Summary = "Adds a new book",
-            Description = "Adds a new book to the library collection",
-            OperationId = "AddBook",
-            Tags = new[] { "Books" })]
+
         public async Task<ActionResult<Book>> AddBook([FromBody] Book book)
         {
             if (book == null)
@@ -184,11 +165,7 @@ namespace Library.API.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [SwaggerOperation(
-            Summary = "Updates an existing book",
-            Description = "Updates an existing book's information in the library",
-            OperationId = "UpdateBook",
-            Tags = new[] { "Books" })]
+
         public async Task<ActionResult<Book>> UpdateBook(int id, [FromBody] Book book)
         {
             if (book == null || id != book.Id)
@@ -212,11 +189,7 @@ namespace Library.API.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [SwaggerOperation(
-            Summary = "Deletes a book",
-            Description = "Removes a book from the library collection",
-            OperationId = "DeleteBook",
-            Tags = new[] { "Books" })]
+
         public async Task<ActionResult> DeleteBook(int id)
         {
             var result = await _bookService.DeleteBookAsync(id);

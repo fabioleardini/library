@@ -1,4 +1,5 @@
 using Library.Application.Interfaces;
+using Library.Infrastructure.Interfaces;
 using Library.Domain.Models;
 
 namespace Library.Application.Services
