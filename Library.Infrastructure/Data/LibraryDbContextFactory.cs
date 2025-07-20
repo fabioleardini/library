@@ -9,7 +9,7 @@ namespace Library.Infrastructure.Data
     /// </summary>
     public class LibraryDbContextFactory : IDesignTimeDbContextFactory<LibraryDbContext>
     {
-        public LibraryDbContext CreateDbContext(string[] args)
+        public LibraryDbContext CreateDbContext(string[] args)        
         {
             var optionsBuilder = new DbContextOptionsBuilder<LibraryDbContext>();
             

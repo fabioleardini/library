@@ -6,15 +6,12 @@ namespace Library.Infrastructure.Data
     /// <summary>
     /// Database context for the Royal Library application
     /// </summary>
-    public class LibraryDbContext : DbContext
+    /// <remarks>
+    /// Initializes a new instance of the LibraryDbContext class
+    /// </remarks>
+    /// <param name="options">The options to be used by the context</param>
+    public class LibraryDbContext(DbContextOptions<LibraryDbContext> options) : DbContext(options)
     {
-        /// <summary>
-        /// Initializes a new instance of the LibraryDbContext class
-        /// </summary>
-        /// <param name="options">The options to be used by the context</param>
-        public LibraryDbContext(DbContextOptions<LibraryDbContext> options) : base(options)
-        {
-        }
 
         /// <summary>
         /// Gets or sets the books in the library
@@ -67,7 +64,7 @@ namespace Library.Infrastructure.Data
         /// Seeds the database with initial book data
         /// </summary>
         /// <param name="modelBuilder">The builder being used to construct the model for this context</param>
-        private void SeedData(ModelBuilder modelBuilder)
+        private static void SeedData(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Book>().HasData(
                 new Book

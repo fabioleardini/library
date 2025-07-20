@@ -8,18 +8,13 @@ namespace Library.Infrastructure.Repositories
     /// <summary>
     /// Repository implementation for book data access operations
     /// </summary>
-    public class BookRepository : IBookRepository
+    /// <remarks>
+    /// Initializes a new instance of the BookRepository class
+    /// </remarks>
+    /// <param name="context">The database context</param>
+    public class BookRepository(LibraryDbContext context) : IBookRepository
     {
-        private readonly LibraryDbContext _context;
-
-        /// <summary>
-        /// Initializes a new instance of the BookRepository class
-        /// </summary>
-        /// <param name="context">The database context</param>
-        public BookRepository(LibraryDbContext context)
-        {
-            _context = context;
-        }
+        private readonly LibraryDbContext _context = context;
 
         /// <inheritdoc/>
         public async Task<IEnumerable<Book>> GetAllBooksAsync()
